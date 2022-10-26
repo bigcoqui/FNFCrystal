@@ -18,7 +18,6 @@ import openfl.utils.Assets as OpenFlAssets;
 import meta.MusicBeat.MusicBeatState;
 import meta.data.*;
 import meta.data.Song.SwagSong;
-import meta.data.dependency.Discord;
 import meta.data.font.Alphabet;
 import openfl.media.Sound;
 import sys.FileSystem;
@@ -121,10 +120,6 @@ class FreeplayState extends MusicBeatState
 				}
 			}
 		}
-
-		#if !html5
-		Discord.changePresence('FREEPLAY MENU', 'Main Menu');
-		#end
 
 		// LOAD CHARACTERS
 
