@@ -93,7 +93,6 @@ class GameOverSubstate extends MusicBeatSubState
 			camFollow = new FlxObject(bf.getGraphicMidpoint().x + 20, bf.getGraphicMidpoint().y - 40, 1, 1);
 			add(camFollow);
 		}
-		
 
 		if(stageSuffix != '-onek'){
 			FlxG.sound.play(Paths.sound('fnf_loss_sfx' + stageSuffix));
@@ -103,8 +102,6 @@ class GameOverSubstate extends MusicBeatSubState
 		}
 		Conductor.changeBPM(100);
 
-		// FlxG.camera.followLerp = 1;
-		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 		if(stageSuffix == '-onek'){
@@ -112,6 +109,11 @@ class GameOverSubstate extends MusicBeatSubState
 		}
 
 		bf.playAnim('firstDeath');
+
+		#if android
+		addVirtualPad(NONE, A_B);
+		addPadCamera();
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -147,13 +149,6 @@ class GameOverSubstate extends MusicBeatSubState
 				FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix));
 			}
 		}
-		
-		/*else if(bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished && bf.curCharacter == 'bf-onek-dead'){
-			FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix));
-		}*/
-
-		// if (FlxG.sound.music.playing)
-		//	Conductor.songPosition = FlxG.sound.music.time;
 	}
 
 	override function beatHit()
@@ -188,7 +183,6 @@ class GameOverSubstate extends MusicBeatSubState
 					Main.switchState(this, new PlayState());
 				});
 			});
-			//
 		}
 	}
 }
