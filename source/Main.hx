@@ -12,7 +12,6 @@ import haxe.io.Path;
 import lime.app.Application;
 import meta.*;
 import meta.data.PlayerSettings;
-import meta.data.dependency.Discord;
 import openfl.Assets;
 import openfl.utils.Assets as Buceta;
 import openfl.Lib;
@@ -178,12 +177,6 @@ class Main extends Sprite
 
 		// default game FPS settings, I'll probably comment over them later.
 		// addChild(new FPS(10, 3, 0xFFFFFF));
-
-		// begin the discord rich presence
-		#if !html5
-		Discord.initializeRPC();
-		Discord.changePresence('');
-		#end
 
 		// test initialising the player settings
 		PlayerSettings.init();
