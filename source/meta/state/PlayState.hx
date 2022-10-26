@@ -41,10 +41,6 @@ import sys.io.File;
 
 using StringTools;
 
-#if !html5
-import meta.data.dependency.Discord;
-#end
-
 class PlayState extends MusicBeatState
 {
 	public static var startTimer:FlxTimer;
@@ -1176,14 +1172,6 @@ class PlayState extends MusicBeatState
 	{
 		#if !html5
 		var displayRPC:String = (pausedRPC) ? detailsPausedText : songDetails;
-
-		if (health > 0)
-		{
-			if (Conductor.songPosition > 0 && !pausedRPC)
-				Discord.changePresence(displayRPC, detailsSub, iconRPC, true, songLength - Conductor.songPosition);
-			else
-				Discord.changePresence(displayRPC, detailsSub, iconRPC);
-		}
 		#end
 	}
 
