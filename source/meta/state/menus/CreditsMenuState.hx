@@ -118,6 +118,10 @@ class CreditsMenuState extends MusicBeatState
 		credits10.alignment = CENTER;
 		credits10.scrollFactor.set();
 		add(credits10);
+
+		#if android
+		addVirtualPad(NONE, A);
+		#end
 	}
 	
 	override function update(elapsed:Float)
