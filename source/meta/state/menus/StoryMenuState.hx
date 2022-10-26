@@ -14,7 +14,6 @@ import flixel.util.FlxTimer;
 import gameObjects.userInterface.menu.*;
 import meta.MusicBeat.MusicBeatState;
 import meta.data.*;
-import meta.data.dependency.Discord;
 
 using StringTools;
 
@@ -56,10 +55,6 @@ class StoryMenuState extends MusicBeatState
 		super.create();
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
-
-		#if !html5
-		Discord.changePresence('STORY MENU', 'Main Menu');
-		#end
 
 		// freeaaaky
 		ForeverTools.resetMenuMusic();
