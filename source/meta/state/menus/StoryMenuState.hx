@@ -179,7 +179,7 @@ class StoryMenuState extends MusicBeatState
 		updateText();
 
 		#if android
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(LEFT_FULL, A_B);
 		#end
 	}
 
