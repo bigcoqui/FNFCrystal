@@ -11,7 +11,6 @@ import flixel.util.FlxTimer;
 import gameObjects.userInterface.menu.Checkmark;
 import gameObjects.userInterface.menu.Selector;
 import meta.MusicBeat.MusicBeatState;
-import meta.data.dependency.Discord;
 import meta.data.dependency.FNFSprite;
 import meta.data.font.Alphabet;
 import meta.subState.OptionsSubstate;
@@ -44,10 +43,6 @@ class OptionsMenuState extends MusicBeatState
 		 */
 
 		// NOTE : Make sure to check Init.hx if you are trying to add options.
-
-		#if !html5
-		Discord.changePresence('OPTIONS MENU', 'Main Menu');
-		#end
 
 		categoryMap = [
 			'main' => [
