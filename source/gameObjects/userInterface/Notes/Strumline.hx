@@ -126,9 +126,8 @@ class Strumline extends FlxTypedGroup<FlxBasic>
 	//
 	public var receptors:FlxTypedGroup<UIStaticArrow>;
 	public var splashNotes:FlxTypedGroup<NoteSplash>;
+	public var mineSplashNotes:FlxTypedGroup<NoteSplash>;
 	public var notesGroup:FlxTypedGroup<Note>;
-	public var holdsGroup:FlxTypedGroup<Note>;
-	public var allNotes:FlxTypedGroup<Note>;
 
 	public var autoplay:Bool = true;
 	public var character:Character;
@@ -142,10 +141,8 @@ class Strumline extends FlxTypedGroup<FlxBasic>
 
 		receptors = new FlxTypedGroup<UIStaticArrow>();
 		splashNotes = new FlxTypedGroup<NoteSplash>();
+		mineSplashNotes = new FlxTypedGroup<NoteSplash>();
 		notesGroup = new FlxTypedGroup<Note>();
-		holdsGroup = new FlxTypedGroup<Note>();
-
-		allNotes = new FlxTypedGroup<Note>();
 
 		this.autoplay = autoplay;
 		this.character = character;
@@ -171,19 +168,19 @@ class Strumline extends FlxTypedGroup<FlxBasic>
 			FlxTween.tween(staticArrow, {y: staticArrow.initialY, alpha: staticArrow.setAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 
 			if (noteSplashes) {
-				var noteSplash:NoteSplash = ForeverAssets.generateNoteSplashes('noteSplashes', PlayState.assetModifier, PlayState.changeableSkin, 'UI', i);
+				var noteSplash:NoteSplash = ForeverAssets.generateNoteSplashes('noteSplashes', PlayState.assetModifier, 'noteskins/notes', i);
 				splashNotes.add(noteSplash);
+				var mineNoteSplash:NoteSplash = ForeverAssets.generateMineNoteSplashes('anxietynotesplash', PlayState.assetModifier, 'noteskins/mines/base', i);
+				mineSplashNotes.add(mineNoteSplash);
 			}
 		}
 
-		if (Init.trueSettings.get("Clip Style").toLowerCase() == 'stepmania')
-			add(holdsGroup);
 		add(receptors);
-		if (Init.trueSettings.get("Clip Style").toLowerCase() == 'fnf')
-			add(holdsGroup);
 		add(notesGroup);
 		if (splashNotes != null)
 			add(splashNotes);
+		if (mineSplashNotes != null)
+			add(mineSplashNotes);
 	}
 
 	public function createSplash(coolNote:Note)
@@ -196,9 +193,8 @@ class Strumline extends FlxTypedGroup<FlxBasic>
 	public function push(newNote:Note)
 	{
 		//
-		var chosenGroup = (newNote.isSustainNote ? holdsGroup : notesGroup);
-		chosenGroup.add(newNote);
-		allNotes.add(newNote);
-		chosenGroup.sort(FlxSort.byY, (!Init.trueSettings.get('Downscroll')) ? FlxSort.DESCENDING : FlxSort.ASCENDING);
+		notesGroup.add(newNote);
+		// thanks sammu I have no idea how this line works lmao
+		notesGroup.sort(FlxSort.byY, (!Init.trueSettings.get('Downscroll')) ? FlxSort.DESCENDING : FlxSort.ASCENDING);
 	}
 }
