@@ -14,6 +14,7 @@ import flixel.tweens.misc.ColorTween;
 import flixel.util.FlxColor;
 import gameObjects.userInterface.HealthIcon;
 import lime.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
 import meta.MusicBeat.MusicBeatState;
 import meta.data.*;
 import meta.data.Song.SwagSong;
@@ -69,7 +70,6 @@ class FreeplayState extends MusicBeatState
 		// load in all songs that exist in folder
 		var folderSongs:Array<String> = CoolUtil.returnAssetsLibrary('songs', 'assets');
 
-		///*
 		for (i in 0...Main.gameWeeks.length)
 		{
 			addWeek(Main.gameWeeks[i][0], i, Main.gameWeeks[i][1], Main.gameWeeks[i][2]);
@@ -77,14 +77,12 @@ class FreeplayState extends MusicBeatState
 				existingSongs.push(j.toLowerCase());
 		}
 
-		// */
-
 		for (i in folderSongs)
 		{
 			if (!existingSongs.contains(i.toLowerCase()))
 			{
 				var icon:String = 'gf';
-				var chartExists:Bool = FileSystem.exists(Paths.songJson(i, i));
+				var chartExists:Bool = OpenFlAssets.exists(Paths.songJson(i, i));
 				if (chartExists)
 				{
 					var castSong:SwagSong = Song.loadFromJson(i, i);
@@ -124,9 +122,6 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		// LOAD MUSIC
-		// ForeverTools.resetMenuMusic();
-
 		#if !html5
 		Discord.changePresence('FREEPLAY MENU', 'Main Menu');
 		#end
@@ -162,10 +157,6 @@ class FreeplayState extends MusicBeatState
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
 			add(icon);
-
-			// songText.x += 40;
-			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-			// songText.screenCenter(X);
 		}
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
@@ -186,13 +177,14 @@ class FreeplayState extends MusicBeatState
 		changeSelection();
 		changeDiff();
 
-		// FlxG.sound.playMusic(Paths.music('title'), 0);
-		// FlxG.sound.music.fadeIn(2, 0, 0.8);
 		selector = new FlxText();
 
 		selector.size = 40;
 		selector.text = ">";
-		// add(selector);
+
+		#if android
+		addVirtualPad(LEFT_FULL, A_B);
+		#end
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, songColor:FlxColor)
@@ -200,8 +192,8 @@ class FreeplayState extends MusicBeatState
 		///*
 		var coolDifficultyArray = [];
 		for (i in CoolUtil.difficultyArray)
-			if (FileSystem.exists(Paths.songJson(songName, songName + '-' + i))
-				|| (FileSystem.exists(Paths.songJson(songName, songName)) && i == "NORMAL"))
+			if (OpenFlAssets.exists(Paths.songJson(songName, songName + '-' + i))
+				|| (OpenFlAssets.exists(Paths.songJson(songName, songName)) && i == "NORMAL"))
 				coolDifficultyArray.push(i);
 
 		if (coolDifficultyArray.length > 0)
