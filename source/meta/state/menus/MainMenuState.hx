@@ -13,7 +13,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import meta.MusicBeat.MusicBeatState;
-import meta.data.dependency.Discord;
 
 using StringTools;
 
@@ -56,10 +55,6 @@ class MainMenuState extends MusicBeatState
 
 		// make sure the music is playing
 		ForeverTools.resetMenuMusic();
-
-		#if !html5
-		Discord.changePresence('MENU SCREEN', 'Main Menu');
-		#end
 
 		// uh
 		persistentUpdate = persistentDraw = true;
