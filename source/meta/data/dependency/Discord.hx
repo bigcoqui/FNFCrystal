@@ -1,3 +1,4 @@
+#if desktop
 package meta.data.dependency;
 
 #if !html5
@@ -77,3 +78,4 @@ class Discord
 	}
 	#end
 }
+#end
